@@ -1,5 +1,5 @@
 defmodule Tictac do
-  @players {:x, :o}
+  alias Tictac.Square
 
   def check_player(player) do
     case player do
@@ -16,14 +16,6 @@ defmodule Tictac do
       :o -> {:error, :occupied}
       :empty -> {:ok, %{board | place => player}}
     end
-  end
-
-  def new_board do
-    for s <- squares(), into: %{}, do: {s, :empty}
-  end
-
-  def squares do
-    for c <- 1..3, r <- 1..3, into: MapSet.new(), do: %Square{col: c, row: r}
   end
 
   def play_at(board, col, row, player) do
