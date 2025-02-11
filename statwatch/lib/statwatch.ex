@@ -16,7 +16,7 @@ defmodule Statwatch do
 
   def stats_url do
     youtube_api_v3 = "https://www.googleapis.com/youtube/v3/"
-    youtube_api_key = "key=" <> "AIzaSyD0wOC5n_aeDb9JG7hinB2Pzov1m5j34Tk"
+    youtube_api_key = "key=" <> read_api_key()
     channel_id = "id=" <> "UCp5Nix6mJCoLkH_GqcRRp1A"
     "#{youtube_api_v3}channels?#{channel_id}&#{youtube_api_key}&part=statistics"
   end
@@ -33,5 +33,11 @@ defmodule Statwatch do
     end
 
     File.write!(filename, row_of_stats <> "\n", [:append])
+  end
+
+  defp read_api_key do
+    "config/api_key.txt"
+    |> File.read!()
+    |> String.trim()
   end
 end
